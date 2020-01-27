@@ -5,36 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://kit.fontawesome.com/3b56dc2a5c.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="sytle.css">
   <title>Expense Calculator</title>
 </head>
 <body>
-
+  <h1 class="title">Expense & Income Tracker</h1>
+<div class="container">
+  <div class="income-container">
   <form class="formid">
     <div>     
       <label for="description">Income Description</label>
-      <input type="text" id="incomeDesc">
-
+      <input type="text" id="incomeDesc" maxlength="12">
       <label for="Income">Income</label>
-      <input type="number" id="income2">
-      
+      <input type="number" min="0" id="income2">
     </div>
   </form>
-  <button id="incomeBTN">Income</button>
+    <button id="incomeBTN">Add Income</button>
+  </div>
   
+<div class="expense-container">
 <form class="formid">
   <div>
     <label for="description">Expense Description</label>
-    <input type="text" id="expenseDesc">
+    <input type="text" id="expenseDesc" maxlength="12">
     <label for="Expense">Expense</label>
-    <input type="number" id="expense">
+    <input type="number" min="0" id="expense">
   </div>
 </form>
-<button id="expenseBTN">Expense</button>
+  <button id="expenseBTN">Add Expense</button>
+</div>
+</div>
+<div id="totalBTN-container">
+  <button id="totalBTN">Calculate Total</button>
+</div>
+<div class="newheadcontainer">
+  <h1 class="chewy">Income</h1>
+  <h1 class="niko">Expenses</h1>
+</div>
+<div id="totalContainer">
+  <div class="total-buttons-container">
+    <div class="incomeHeadContain">
+      <!-- <h1 class="incomeH1">Income</h1> -->
+    </div>
+        <ul id="ULincome"></ul>
+  </div>
+  <div class="other-buttons-container">
+    <div class="expenseHeadContain">
+      <!-- <h1 class="expensesH1">Expenses</h1> -->
+    </div>
+        <ul id="ULexpenses"></ul>
+        
+  </div>
+</div>
+<div class="modal">
+  <div id="result" class="modal-content">
+    <h1 class="modalH1">Balance</h1>
+    <p class="modalPara">X</p>
+    <p class="modalinsert"></p>
+  </div>
+</div>
 
-<button id="totalBTN">Total</button>
-<ul id="ULincome" class="income-UL-list"></ul>
-<ul id="ULexpenses" class="expense-UL-List"></ul>
 
 
  <script src="app.js"></script>

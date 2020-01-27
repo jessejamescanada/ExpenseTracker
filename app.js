@@ -7,8 +7,15 @@ const incomeBTN = document.getElementById("incomeBTN");
 const expenseBTN = document.getElementById("expenseBTN");
 const totalBTN = document.getElementById("totalBTN");
 
+
 const ulIncomeList = document.getElementById("ULincome");
 const ulExpenseList = document.getElementById("ULexpenses");
+const incomeH1 = document.querySelector('.incomeH1');
+const expensesH1 = document.querySelector('.expensesH1');
+const modal = document.querySelector('.modal');
+const closeModal = document.querySelector('.modalPara');
+const modalInsert = document.querySelector('.modalinsert')
+const newHeadContainer = document.querySelector('.newheadcontainer')
 
 const accountMy = {
   name: "jesse",
@@ -20,10 +27,13 @@ const accountMy = {
       amount: amount
     });
     // make list for expenses
+    newHeadContainer.style.display = 'flex';
+    document.querySelector('#totalContainer').style.display = 'flex'
+
     const liExp = document.createElement("li");
     liExp.className = "li-item-expenses";
 
-    liExp.appendChild(document.createTextNode(`${description} : ${amount}`));
+    liExp.appendChild(document.createTextNode(`${description} : $${amount}`));
     const link = document.createElement("a");
     link.className = "delete secondary-content-expenses";
     link.innerHTML = `<i class="fa fa-remove"></i>`;
@@ -41,10 +51,13 @@ const accountMy = {
       amount: amount
     });
     // make list for income
+    newHeadContainer.style.display = 'flex';
+    document.querySelector('#totalContainer').style.display = 'flex'
+
     const li = document.createElement("li");
     li.className = "li-item";
 
-    li.appendChild(document.createTextNode(`${description} : ${amount}`));
+    li.appendChild(document.createTextNode(`${description} : $${amount}`));
     const link = document.createElement("a");
     link.classList = "delete secondary-content";
     link.innerHTML = `<i class="fa fa-remove"></i>`;
@@ -79,7 +92,13 @@ const accountMy = {
       totalIncome = totalIncome + inc.amount;
     });
     let totalMoney = totalIncome - totalExpenses;
-    return `${this.name} has a balance of $${totalMoney}. Expenses were ${totalExpenses} and Income was ${totalIncome}`;
+    // create content for modal
+    const modalinsert = document.querySelector('.modalinsert')
+    const modalContent = document.createElement('p');
+    modalContent.className = 'modalSummary'
+    modalContent.innerHTML = `${this.name} has a balance of <strong>$${totalMoney}</strong>. Expenses were <strong>$${totalExpenses}</strong> and Income was <strong>$${totalIncome}</strong>`;
+    modalinsert.appendChild(modalContent);
+    console.log(totalMoney);
   }
 };
 
@@ -136,9 +155,38 @@ function removeTaskExpenses(e) {
   console.log(accountMy.expenses);
 }
 
+// modals
+function showTotalModal(){
+  modal.style.display = 'block'
+  accountMy.getAccountSummary();
+}
+
+function clearModal(e){
+  if(e.target == modal){
+    modal.style.display = 'none'
+    document.querySelector('.modalSummary').remove();
+
+  }
+}
+
+function modalClose(e){
+  if(e.target === closeModal){
+    modal.style.display = 'none'
+    document.querySelector('.modalSummary').remove();
+  }
+}
+
+
 // event listeners
 incomeBTN.addEventListener("click", getIncomeValues);
 expenseBTN.addEventListener("click", getExpenseValues);
-totalBTN.addEventListener("click", getTotal);
+totalBTN.addEventListener("click", showTotalModal);
 ulIncomeList.addEventListener("click", removeTaskIncome);
 ulExpenseList.addEventListener("click", removeTaskExpenses);
+totalBTN.addEventListener('click', showTotalModal)
+window.addEventListener('click', clearModal);
+closeModal.addEventListener('click', modalClose)
+
+
+// calculate total should be displayed in modal?
+
