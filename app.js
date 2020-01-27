@@ -6,6 +6,7 @@ let expenseDescription = document.getElementById("expenseDesc");
 const incomeBTN = document.getElementById("incomeBTN");
 const expenseBTN = document.getElementById("expenseBTN");
 const totalBTN = document.getElementById("totalBTN");
+const clearBTN = document.getElementById('clearBTN');
 
 
 const ulIncomeList = document.getElementById("ULincome");
@@ -36,7 +37,7 @@ const accountMy = {
     liExp.appendChild(document.createTextNode(`${description} : $${amount}`));
     const link = document.createElement("a");
     link.className = "delete secondary-content-expenses";
-    link.innerHTML = `<i class="fa fa-remove"></i>`;
+    link.innerHTML = `<i class="far fa-times-circle"></i>`;
     // Below for loop adds id to each item added to target to delete after. Reference Score Calculator Code
     let i = 0;
     for (i = 0; i <= this.expenses.length - 1; i++) {
@@ -51,6 +52,7 @@ const accountMy = {
       amount: amount
     });
     // make list for income
+    
     newHeadContainer.style.display = 'flex';
     document.querySelector('#totalContainer').style.display = 'flex'
 
@@ -60,7 +62,7 @@ const accountMy = {
     li.appendChild(document.createTextNode(`${description} : $${amount}`));
     const link = document.createElement("a");
     link.classList = "delete secondary-content";
-    link.innerHTML = `<i class="fa fa-remove"></i>`;
+    link.innerHTML = `<i class="far fa-times-circle"></i>`;
     let i = 0;
     for (i = 0; i <= this.income.length - 1; i++) {
       link.setAttribute("id", "newIncome-" + i);
@@ -96,7 +98,12 @@ const accountMy = {
     const modalinsert = document.querySelector('.modalinsert')
     const modalContent = document.createElement('p');
     modalContent.className = 'modalSummary'
-    modalContent.innerHTML = `${this.name} has a balance of <strong>$${totalMoney}</strong>. Expenses were <strong>$${totalExpenses}</strong> and Income was <strong>$${totalIncome}</strong>`;
+    if(totalMoney >= 0){
+    modalContent.innerHTML = `You have a balance of <strong>$${totalMoney}</strong>. Expenses were <strong>$${totalExpenses}</strong> and income was <strong>$${totalIncome}</strong>`;
+    }else if(totalMoney < 0){
+      modalContent.innerHTML = `You owe <strong>$${totalMoney}</strong>. Your expenses were <strong>$${totalExpenses}</strong> and income was only <strong>$${totalIncome}</strong>`;
+
+    }
     modalinsert.appendChild(modalContent);
     console.log(totalMoney);
   }
@@ -105,6 +112,21 @@ const accountMy = {
 function getIncomeValues() {
   this.description = incomeDescription.value;
   this.amount = parseFloat(userIncome.value);
+  if(userIncome.value === ''){
+    console.log('no');
+    const div = document.createElement('div');
+    div.className = `alertMSG`;
+    div.appendChild(document.createTextNode('Please enter income'));
+    const container = document.querySelector('.income-container');
+    container.insertAdjacentElement("afterbegin", div);
+    // Below disabled button for 3 sec and inserts alert
+    incomeBTN.setAttribute('disabled', true)
+    setTimeout(function(){
+      document.querySelector('.alertMSG').remove();
+      incomeBTN.removeAttribute("disabled")
+    }, 3000)
+    return false
+  }
   accountMy.addIncomeItem(this.description, this.amount);
   incomeDescription.value = "";
   userIncome.value = "";
@@ -113,6 +135,21 @@ function getIncomeValues() {
 function getExpenseValues() {
   this.description = expenseDescription.value;
   this.amount = parseFloat(userExpense.value);
+  if(userExpense.value === ''){
+    console.log('no')
+    const div = document.createElement('div');
+    div.className = `alertMSG`;
+    div.appendChild(document.createTextNode('Please enter expense'));
+    const container = document.querySelector('.expense-container');
+    container.insertAdjacentElement("afterbegin", div);
+    // Below disabled button for 3 sec and inserts alert
+    expenseBTN.setAttribute('disabled', true)
+    setTimeout(function(){
+      document.querySelector('.alertMSG').remove();
+      expenseBTN.removeAttribute("disabled")
+    }, 3000)
+    return false
+  }
   accountMy.addExpenseItem(this.description, this.amount);
   expenseDescription.value = "";
   userExpense.value = "";
@@ -177,7 +214,10 @@ function modalClose(e){
 }
 
 
+
+
 // event listeners
+
 incomeBTN.addEventListener("click", getIncomeValues);
 expenseBTN.addEventListener("click", getExpenseValues);
 totalBTN.addEventListener("click", showTotalModal);
@@ -186,6 +226,7 @@ ulExpenseList.addEventListener("click", removeTaskExpenses);
 totalBTN.addEventListener('click', showTotalModal)
 window.addEventListener('click', clearModal);
 closeModal.addEventListener('click', modalClose)
+
 
 
 // calculate total should be displayed in modal?

@@ -67,7 +67,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  margin: 0rem;
 }
 #totalBTN-container{
   display: flex;
@@ -76,7 +76,7 @@ body {
   margin: auto;
 }
 
-#totalBTN {
+#totalBTN, #clearBTN {
   background-color: rgba(15, 15, 15, 0.705);
   color: whitesmoke;
   border: none;
@@ -203,21 +203,19 @@ body {
   justify-content: space-between;
 }
 
-.li-item{
-list-style: none;
-}
 .li-item, #text{
 
 }
 
-.li-item-expenses{
+.li-item-expenses, .li-item{
   list-style: none;
-
+  margin-bottom: .2rem;
+  border-bottom: 1px dotted;
 }
+
 .li-item-expenses, #text{
 
 }
-
 
 .expensesH1{
   justify-content: center;
@@ -251,7 +249,7 @@ list-style: none;
   margin-bottom: -1.4rem;
 }
 
-.fa-remove{
+.fa-times-circle{
   float:right;
  margin-left: 2rem;
 
@@ -273,7 +271,7 @@ list-style: none;
 
 .modal-content{
   
-  background: #fff;
+  background: white;
   text-align: center;
   margin: 10% auto;
   position: relative;
@@ -281,6 +279,8 @@ list-style: none;
   border-radius: 10px;
   padding: 3rem;
   box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.2), 0 7px 20px rgba(0, 0, 0, 0.17);
+  
+  
   animation-name: modalopen;
   animation-duration: 1s;
 }
@@ -288,11 +288,12 @@ list-style: none;
   margin-bottom: 1rem;
 }
 .modalPara{
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 900;
   margin-top: 1rem;
   position: absolute;
   right: 5px;
-  top: -10px;
+  top: -14px;
   z-index: 1000;
   cursor: pointer;
 }
@@ -306,5 +307,17 @@ list-style: none;
   }
 }
 
+.alertMSG{
+  
+  padding: 5px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin: 5px 0 15px 0;
+  background: rgba(228, 0, 0, 0.63);
+}
+
+
+
 /* //////Ideas////// When Calculate total clicks. transform text into the loading sign (or similar) for .5seconds */
 /* have add income/expense buttons move when clicked */
+/* fix in JS so empty values cant be added + add localStorage */
