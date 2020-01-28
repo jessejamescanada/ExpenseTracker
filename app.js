@@ -6,17 +6,16 @@ let expenseDescription = document.getElementById("expenseDesc");
 const incomeBTN = document.getElementById("incomeBTN");
 const expenseBTN = document.getElementById("expenseBTN");
 const totalBTN = document.getElementById("totalBTN");
-const clearBTN = document.getElementById('clearBTN');
-
+const clearBTN = document.getElementById("clearBTN");
 
 const ulIncomeList = document.getElementById("ULincome");
 const ulExpenseList = document.getElementById("ULexpenses");
-const incomeH1 = document.querySelector('.incomeH1');
-const expensesH1 = document.querySelector('.expensesH1');
-const modal = document.querySelector('.modal');
-const closeModal = document.querySelector('.modalPara');
-const modalInsert = document.querySelector('.modalinsert')
-const newHeadContainer = document.querySelector('.newheadcontainer')
+const incomeH1 = document.querySelector(".incomeH1");
+const expensesH1 = document.querySelector(".expensesH1");
+const modal = document.querySelector(".modal");
+const closeModal = document.querySelector(".modalPara");
+const modalInsert = document.querySelector(".modalinsert");
+const newHeadContainer = document.querySelector(".newheadcontainer");
 
 const accountMy = {
   name: "jesse",
@@ -28,8 +27,8 @@ const accountMy = {
       amount: amount
     });
     // make list for expenses
-    newHeadContainer.style.display = 'flex';
-    document.querySelector('#totalContainer').style.display = 'flex'
+    newHeadContainer.style.display = "flex";
+    document.querySelector("#totalContainer").style.display = "flex";
 
     const liExp = document.createElement("li");
     liExp.className = "li-item-expenses";
@@ -52,9 +51,9 @@ const accountMy = {
       amount: amount
     });
     // make list for income
-    
-    newHeadContainer.style.display = 'flex';
-    document.querySelector('#totalContainer').style.display = 'flex'
+
+    newHeadContainer.style.display = "flex";
+    document.querySelector("#totalContainer").style.display = "flex";
 
     const li = document.createElement("li");
     li.className = "li-item";
@@ -95,14 +94,13 @@ const accountMy = {
     });
     let totalMoney = totalIncome - totalExpenses;
     // create content for modal
-    const modalinsert = document.querySelector('.modalinsert')
-    const modalContent = document.createElement('p');
-    modalContent.className = 'modalSummary'
-    if(totalMoney >= 0){
-    modalContent.innerHTML = `You have a balance of <strong>$${totalMoney}</strong>. Expenses were <strong>$${totalExpenses}</strong> and income was <strong>$${totalIncome}</strong>`;
-    }else if(totalMoney < 0){
+    const modalinsert = document.querySelector(".modalinsert");
+    const modalContent = document.createElement("p");
+    modalContent.className = "modalSummary";
+    if (totalMoney >= 0) {
+      modalContent.innerHTML = `You have a balance of <strong>$${totalMoney}</strong>. Expenses were <strong>$${totalExpenses}</strong> and income was <strong>$${totalIncome}</strong>`;
+    } else if (totalMoney < 0) {
       modalContent.innerHTML = `You owe <strong>$${totalMoney}</strong>. Your expenses were <strong>$${totalExpenses}</strong> and income was only <strong>$${totalIncome}</strong>`;
-
     }
     modalinsert.appendChild(modalContent);
     console.log(totalMoney);
@@ -112,20 +110,20 @@ const accountMy = {
 function getIncomeValues() {
   this.description = incomeDescription.value;
   this.amount = parseFloat(userIncome.value);
-  if(userIncome.value === ''){
-    console.log('no');
-    const div = document.createElement('div');
+  if (userIncome.value === "") {
+    console.log("no");
+    const div = document.createElement("div");
     div.className = `alertMSG`;
-    div.appendChild(document.createTextNode('Please enter income'));
-    const container = document.querySelector('.income-container');
+    div.appendChild(document.createTextNode("Please enter income"));
+    const container = document.querySelector(".income-container");
     container.insertAdjacentElement("afterbegin", div);
     // Below disabled button for 3 sec and inserts alert
-    incomeBTN.setAttribute('disabled', true)
-    setTimeout(function(){
-      document.querySelector('.alertMSG').remove();
-      incomeBTN.removeAttribute("disabled")
-    }, 3000)
-    return false
+    incomeBTN.setAttribute("disabled", true);
+    setTimeout(function() {
+      document.querySelector(".alertMSG").remove();
+      incomeBTN.removeAttribute("disabled");
+    }, 3000);
+    return false;
   }
   accountMy.addIncomeItem(this.description, this.amount);
   incomeDescription.value = "";
@@ -135,20 +133,20 @@ function getIncomeValues() {
 function getExpenseValues() {
   this.description = expenseDescription.value;
   this.amount = parseFloat(userExpense.value);
-  if(userExpense.value === ''){
-    console.log('no')
-    const div = document.createElement('div');
+  if (userExpense.value === "") {
+    console.log("no");
+    const div = document.createElement("div");
     div.className = `alertMSG`;
-    div.appendChild(document.createTextNode('Please enter expense'));
-    const container = document.querySelector('.expense-container');
+    div.appendChild(document.createTextNode("Please enter expense"));
+    const container = document.querySelector(".expense-container");
     container.insertAdjacentElement("afterbegin", div);
     // Below disabled button for 3 sec and inserts alert
-    expenseBTN.setAttribute('disabled', true)
-    setTimeout(function(){
-      document.querySelector('.alertMSG').remove();
-      expenseBTN.removeAttribute("disabled")
-    }, 3000)
-    return false
+    expenseBTN.setAttribute("disabled", true);
+    setTimeout(function() {
+      document.querySelector(".alertMSG").remove();
+      expenseBTN.removeAttribute("disabled");
+    }, 3000);
+    return false;
   }
   accountMy.addExpenseItem(this.description, this.amount);
   expenseDescription.value = "";
@@ -193,28 +191,24 @@ function removeTaskExpenses(e) {
 }
 
 // modals
-function showTotalModal(){
-  modal.style.display = 'block'
+function showTotalModal() {
+  modal.style.display = "block";
   accountMy.getAccountSummary();
 }
 
-function clearModal(e){
-  if(e.target == modal){
-    modal.style.display = 'none'
-    document.querySelector('.modalSummary').remove();
-
+function clearModal(e) {
+  if (e.target == modal) {
+    modal.style.display = "none";
+    document.querySelector(".modalSummary").remove();
   }
 }
 
-function modalClose(e){
-  if(e.target === closeModal){
-    modal.style.display = 'none'
-    document.querySelector('.modalSummary').remove();
+function modalClose(e) {
+  if (e.target === closeModal) {
+    modal.style.display = "none";
+    document.querySelector(".modalSummary").remove();
   }
 }
-
-
-
 
 // event listeners
 
@@ -223,11 +217,8 @@ expenseBTN.addEventListener("click", getExpenseValues);
 totalBTN.addEventListener("click", showTotalModal);
 ulIncomeList.addEventListener("click", removeTaskIncome);
 ulExpenseList.addEventListener("click", removeTaskExpenses);
-totalBTN.addEventListener('click', showTotalModal)
-window.addEventListener('click', clearModal);
-closeModal.addEventListener('click', modalClose)
-
-
+totalBTN.addEventListener("click", showTotalModal);
+window.addEventListener("click", clearModal);
+closeModal.addEventListener("click", modalClose);
 
 // calculate total should be displayed in modal?
-
